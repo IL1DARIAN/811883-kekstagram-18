@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сергей Носов](https://up.htmlacademy.ru/javascript/18/user/811883).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Сигов] (https://up.htmlacademy.ru/javascript/18/user/crazer).
 
 ---
 
