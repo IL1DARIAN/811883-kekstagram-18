@@ -18,7 +18,7 @@ var similarPhotosTemplate = document.querySelector('#picture').content.querySele
 var picturesCard = document.querySelector('.pictures');
 
 var getRandom = function (min, max) {
-  Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 var getComments = function () {
@@ -55,7 +55,7 @@ var renderPhotos = function (photoCard) {
 
   photoElement.querySelector('.picture__img').src = photoCard.url;
   photoElement.querySelector('.picture__likes').textContent = photoCard.likes;
-  photoElement.querySelector('.picture__comments').textContent = photoCard.comments;
+  photoElement.querySelector('.picture__comments').textContent = photoCard.comments.length;
 
   return photoElement;
 };
