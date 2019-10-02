@@ -27,8 +27,8 @@ var getComments = function () {
   for (var i = MIN_COMMENT; i <= getRandom(MIN_COMMENT, MAX_COMMENT); i++) {
     comments.push({
       avatar: 'img/avatar-' + getRandom(MIN_AUTHOR, MAX_AUTHOR) + '.svg',
-      massage: totalComments[getRandom(0, totalComments.length-1)],
-      name: names[getRandom(0, names.length-1)]
+      massage: totalComments[getRandom(0, totalComments.length - 1)],
+      name: names[getRandom(0, names.length - 1)]
     });
   }
 
@@ -95,7 +95,7 @@ var renderComment = function () {
     commentElement.querySelector('.social__text').textContent = totalPhotos[0].comments[i].massage;
 
     fragment.appendChild(commentElement);
-  };
+  }
 
   return socialComments.appendChild(fragment);
 };
