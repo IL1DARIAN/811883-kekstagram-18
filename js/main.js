@@ -87,9 +87,9 @@ var socialComments = bigPictures.querySelector('.social__comments');
 var itemComment = socialComments.querySelector('.social__comment');
 
 var renderComment = function () {
-  var commentElement = itemComment.cloneNode(true);
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < totalPhotos[0].comments.length; i++) {
+    var commentElement = itemComment.cloneNode(true);
     commentElement.querySelector('.social__picture').src = totalPhotos[0].comments[i].avatar;
     commentElement.querySelector('.social__picture').alt = totalPhotos[0].comments[i].name;
     commentElement.querySelector('.social__text').textContent = totalPhotos[0].comments[i].massage;
