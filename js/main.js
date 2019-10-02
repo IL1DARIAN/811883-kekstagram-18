@@ -100,4 +100,6 @@ var renderComment = function () {
   return socialComments.appendChild(fragment);
 };
 
+socialComments.textContent = '';
+
 renderComment();
