@@ -218,6 +218,10 @@ textDescription.addEventListener('input', function () {
 });
 
 textHashtags.addEventListener('input', function () {
+  if (textHashtags.value.length === 0) {
+    textHashtags.setCustomValidity('');
+    return;
+  }
   var tags = textHashtags.value.split(' ');
   textHashtags.setCustomValidity('');
   for (var i = 0; i < tags.length; i++) {
@@ -235,6 +239,8 @@ textHashtags.addEventListener('input', function () {
       textHashtags.setCustomValidity('Хештег не может состоять из одного символа');
     } else if (tags[k].length > 20) {
       textHashtags.setCustomValidity('Длинна хештега не должна превышать 20 символов');
+    } else if (tags[k].slice(1).includes('#')) {
+      textHashtags.setCustomValidity('Хэштеги должны быть разделены пробелом');
     }
   }
   if (tags.length > 5) {
