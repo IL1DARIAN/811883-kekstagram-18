@@ -228,7 +228,7 @@ textHashtags.addEventListener('input', function () {
     tags[i] = tags[i].toLowerCase();
   }
   for (var k = 0; k < tags.length; k++) {
-    for (var j = i + 1; j < tags.length; j++) {
+    for (var j = k + 1; j < tags.length; j++) {
       if (tags[k] === tags[j]) {
         textHashtags.setCustomValidity('Одинаковые хештеги не допускаются');
       }
