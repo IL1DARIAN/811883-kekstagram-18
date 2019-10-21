@@ -8,6 +8,7 @@
   var names = ['Генрих Цой', 'Варлам Купатов', 'Владимир Дорогомылов', 'Айрат Байхазов', 'Валентина Глазунова', 'Алла Томилина'];
 
   var similarPhotosTemplate = document.querySelector('#picture').content.querySelector('.picture');
+  var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error');
   var picturesCard = document.querySelector('.pictures');
 
   var getComments = function () {
@@ -49,18 +50,24 @@
     return photoElement;
   };
 
-  var totalPhotos = getPhotos();
-
-  var loadingPhotos = function () {
+  var loadingPhotosHandler = function (photoCard) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < totalPhotos.length; i++) {
-      fragment.appendChild(renderPhotos(totalPhotos[i]));
+    for (var i = 0; i < photoCard.length; i++) {
+      fragment.appendChild(renderPhotos(photoCard[i]));
     }
 
     return picturesCard.appendChild(fragment);
   };
 
-  loadingPhotos();
+  var errorPhotosHandler = function () {
+    var node = similarErrorTemplate.cloneNode(true);
+
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.load(loadingPhotosHandler, errorPhotosHandler);
+
+  var totalPhotos = getPhotos();
 
   var bigPictures = document.querySelector('.big-picture');
 
