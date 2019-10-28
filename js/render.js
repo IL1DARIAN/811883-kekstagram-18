@@ -1,44 +1,10 @@
 'use strict';
 
 (function () {
-  //  var totalComments = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  //  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  //  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
-
-  //  var names = ['Генрих Цой', 'Варлам Купатов', 'Владимир Дорогомылов', 'Айрат Байхазов', 'Валентина Глазунова', 'Алла Томилина'];
-
   var similarPhotosTemplate = document.querySelector('#picture').content.querySelector('.picture');
   var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error');
   var picturesCard = document.querySelector('.pictures');
-
-  //  var getComments = function () {
-  //  var comments = [];
-  //
-  //  for (var i = window.util.MIN_COMMENT; i <= window.util.getRandom(window.util.MIN_COMMENT, window.util.MAX_COMMENT); i++) {
-  //    comments.push({
-  //      avatar: 'img/avatar-' + window.util.getRandom(window.util.MIN_AUTHOR, window.util.MAX_AUTHOR) + '.svg',
-  //      massage: totalComments[window.util.getRandom(0, totalComments.length - 1)],
-  //      name: names[window.util.getRandom(0, names.length - 1)]
-  //    });
-  //  }
-  //
-  //  return comments;
-  //  };
-
-  //  var getPhotos = function () {
-  //  var photos = [];
-  //
-  //  for (var i = 1; i <= window.util.STORYES; i++) {
-  //    photos.push({
-  //      url: 'photos/' + i + '.jpg',
-  //      description: 'Описание ' + i,
-  //      likes: window.util.getRandom(window.util.MIN_LIKE, window.util.MAX_LIKE),
-  //     comments: getComments()
-  //    });
-  //  }
-  //
-  //  return photos;
-  //  };
+  var imageFilters = document.querySelector('.img-filters');
 
   var renderPhotos = function (photoCard) {
     var photoElement = similarPhotosTemplate.cloneNode(true);
@@ -113,6 +79,7 @@
   };
 
   var loadingPhotosHandler = function (photoCard) {
+    imageFilters.classList.remove('img-filters--inactive');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < photoCard.length; i++) {
       fragment.appendChild(renderPhotos(photoCard[i]));

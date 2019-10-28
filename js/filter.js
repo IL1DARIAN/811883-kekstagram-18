@@ -13,6 +13,8 @@
   var imgMod = uploadPhoto.querySelector('.img-upload__effect-level');
   var textDescription = uploadPhoto.querySelector('.text__description');
   var textHashtags = uploadPhoto.querySelector('.text__hashtags');
+  var formSubmit = uploadPhoto.querySelector('.img-upload__form');
+  var similarSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.ESC_KEYCODE) {
@@ -140,5 +142,14 @@
     if (tags.length > 5) {
       textHashtags.setCustomValidity('Должно быть не больше 5 хештегов');
     }
+  });
+
+  formSubmit.addEventListener('submit', function (evt) {
+    window.upload(new FormData(formSubmit), function () {
+      var node = similarSuccessTemplate.cloneNode(true);
+      closePopup();
+      document.body.insertAdjacentElement('afterbegin', node);
+    });
+    evt.preventDefault();
   });
 })();
