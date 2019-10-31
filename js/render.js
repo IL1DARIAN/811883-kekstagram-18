@@ -79,11 +79,62 @@
   };
 
   var loadingPhotosHandler = function (photoCard) {
+    var allPhotos = photoCard;
     imageFilters.classList.remove('img-filters--inactive');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < photoCard.length; i++) {
       fragment.appendChild(renderPhotos(photoCard[i]));
     }
+
+    imageFilters.querySelector('.img-filters__form').addEventListener('click', function (evt) {
+      var sortPhoto;
+      var target = evt.target;
+      var changeFillters = imageFilters.querySelectorAll('.img-filters__button');
+      for (var j = 0; j < changeFillters.length; j++) {
+        if (changeFillters[j].classList.contains('img-filters__button--active')) {
+          changeFillters[j].classList.remove('img-filters__button--active');
+        }
+      }
+      var domElements = picturesCard.children;
+      for (var k = domElements.length - 1; k >= 0; k--) {
+        if (domElements[k].classList.contains('picture')) {
+          domElements[k].remove();
+        }
+      }
+      if (target && target.matches('button#filter-popular')) {
+        sortPhoto = allPhotos.slice();
+        target.classList.add('img-filters__button--active');
+      } else if (target && target.matches('button#filter-random')) {
+        var randomArr = allPhotos.slice();
+        var shuffle = function (arr) {
+          var step;
+          var temp;
+          for (var m = arr.length - 1; m > 0; m--) {
+            step = Math.floor(Math.random() * (m + 1));
+            temp = arr[step];
+            arr[step] = arr[m];
+            arr[m] = temp;
+          }
+          return arr;
+        };
+        shuffle(randomArr);
+        sortPhoto = randomArr.slice(0, 10);
+        target.classList.add('img-filters__button--active');
+      } else if (target && target.matches('button#filter-discussed')) {
+        sortPhoto = allPhotos.slice();
+        sortPhoto.sort(function (a, b) {
+          return b.likes - a.likes;
+        });
+        target.classList.add('img-filters__button--active');
+      }
+
+      fragment = document.createDocumentFragment();
+      for (var l = 0; l < sortPhoto.length; l++) {
+        fragment.appendChild(renderPhotos(sortPhoto[l]));
+      }
+
+      return picturesCard.appendChild(fragment);
+    });
 
     return picturesCard.appendChild(fragment);
   };
