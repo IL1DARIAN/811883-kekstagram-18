@@ -31,6 +31,18 @@
     };
   };
 
+  var shuffle = function (arr) {
+    var step;
+    var temp;
+    for (var i = arr.length - 1; i > 0; i--) {
+      step = Math.floor(Math.random() * (i + 1));
+      temp = arr[step];
+      arr[step] = arr[i];
+      arr[i] = temp;
+    }
+    return arr;
+  };
+
   window.util = {
     STORYES: STORYES,
     MIN_LIKE: MIN_LIKE,
@@ -43,6 +55,7 @@
     IMAGE_SIZE: IMAGE_SIZE,
     STEP_SIZE: STEP_SIZE,
     getRandom: getRandom,
-    debounce: debounce
+    debounce: debounce,
+    shuffle: shuffle
   };
 })();
