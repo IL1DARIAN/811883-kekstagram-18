@@ -13,6 +13,9 @@
   var imgMod = uploadPhoto.querySelector('.img-upload__effect-level');
   var textDescription = uploadPhoto.querySelector('.text__description');
   var textHashtags = uploadPhoto.querySelector('.text__hashtags');
+  var formSubmit = uploadPhoto.querySelector('.img-upload__form');
+  var similarSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+  var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.ESC_KEYCODE) {
@@ -140,5 +143,78 @@
     if (tags.length > 5) {
       textHashtags.setCustomValidity('Должно быть не больше 5 хештегов');
     }
+  });
+
+  var uploadPhotoHandler = function () {
+    var node = similarSuccessTemplate.cloneNode(true);
+    closePopup();
+    document.body.insertAdjacentElement('afterbegin', node);
+
+    var successPopupWrapper = document.querySelector('.success');
+    var successPopup = successPopupWrapper.querySelector('.success__inner');
+    var successButton = successPopupWrapper.querySelector('.success__button');
+
+    var closeSuccessPopupEsc = function (evt) {
+      if (evt.keyCode === window.util.ESC_KEYCODE) {
+        closeSuccessPopup();
+      }
+    };
+
+    var closeSuccessPopupOutside = function (evt) {
+      if (!successPopup.contains(evt.target)) {
+        closeSuccessPopup();
+      }
+    };
+
+    var closeSuccessPopup = function () {
+      successPopupWrapper.classList.add('visually-hidden');
+      document.removeEventListener('keydown', closeSuccessPopupEsc);
+      document.removeEventListener('click', closeSuccessPopupOutside);
+    };
+
+
+    document.addEventListener('click', closeSuccessPopupOutside);
+    document.addEventListener('keydown', closeSuccessPopupEsc);
+    successButton.addEventListener('click', closeSuccessPopup);
+  };
+
+  var errorUploadHandler = function () {
+    var node = similarErrorTemplate.cloneNode(true);
+    closePopup();
+    document.body.insertAdjacentElement('afterbegin', node);
+
+    var errorPopupWrapper = document.querySelector('.error');
+    var errorPopup = errorPopupWrapper.querySelector('.error__inner');
+    var errorButtons = errorPopupWrapper.querySelectorAll('.error__button');
+
+    var closeErrorPopupEsc = function (evt) {
+      if (evt.keyCode === window.util.ESC_KEYCODE) {
+        closeErrorPopup();
+      }
+    };
+
+    var closeErrorPopupOutside = function (evt) {
+      if (!errorPopup.contains(evt.target)) {
+        closeErrorPopup();
+      }
+    };
+
+    var closeErrorPopup = function () {
+      errorPopupWrapper.classList.add('visually-hidden');
+      document.removeEventListener('keydown', closeErrorPopupEsc);
+      document.removeEventListener('click', closeErrorPopupOutside);
+    };
+
+
+    document.addEventListener('click', closeErrorPopupOutside);
+    document.addEventListener('keydown', closeErrorPopupEsc);
+    for (var i = 0; i < errorButtons.length; i++) {
+      errorButtons[i].addEventListener('click', closeErrorPopup);
+    }
+  };
+
+  formSubmit.addEventListener('submit', function (evt) {
+    window.upload(new FormData(formSubmit), uploadPhotoHandler, errorUploadHandler);
+    evt.preventDefault();
   });
 })();
