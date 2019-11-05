@@ -41,7 +41,6 @@
       bigPictures.querySelector('.comments-count').textContent = photoCard.comments.length;
       bigPictures.querySelector('.social__caption').textContent = photoCard.description;
       bigPictures.querySelector('.social__comment-count').classList.add('visually-hidden');
-      bigPictures.querySelector('.comments-loader').classList.add('visually-hidden');
 
       closePicture.addEventListener('click', function () {
         closePopup();
@@ -57,14 +56,57 @@
 
       var renderComment = function () {
         var fragment = document.createDocumentFragment();
-        for (var i = 0; i < photoCard.comments.length; i++) {
-          var commentElement = itemComment.cloneNode(true);
-          commentElement.querySelector('.social__picture').src = photoCard.comments[i].avatar;
-          commentElement.querySelector('.social__picture').alt = photoCard.comments[i].name;
-          commentElement.querySelector('.social__text').textContent = photoCard.comments[i].message;
+        var n = 5;
+        var commentElement;
+        if (photoCard.comments.length < n) {
+          for (var i = 0; i < photoCard.comments.length; i++) {
+            commentElement = itemComment.cloneNode(true);
+            commentElement.querySelector('.social__picture').src = photoCard.comments[i].avatar;
+            commentElement.querySelector('.social__picture').alt = photoCard.comments[i].name;
+            commentElement.querySelector('.social__text').textContent = photoCard.comments[i].message;
+            bigPictures.querySelector('.comments-loader').classList.add('visually-hidden');
 
-          fragment.appendChild(commentElement);
+            fragment.appendChild(commentElement);
+          }
+        } else {
+          for (var j = 0; j < n; j++) {
+            commentElement = itemComment.cloneNode(true);
+            commentElement.querySelector('.social__picture').src = photoCard.comments[j].avatar;
+            commentElement.querySelector('.social__picture').alt = photoCard.comments[j].name;
+            commentElement.querySelector('.social__text').textContent = photoCard.comments[j].message;
+            bigPictures.querySelector('.comments-loader').classList.remove('visually-hidden');
+
+            fragment.appendChild(commentElement);
+          }
         }
+
+        bigPictures.querySelector('.comments-loader').addEventListener('click', function () {
+          socialComments.textContent = '';
+          n = n + 5;
+          if (photoCard.comments.length < n) {
+            for (var k = 0; k < photoCard.comments.length; k++) {
+              commentElement = itemComment.cloneNode(true);
+              commentElement.querySelector('.social__picture').src = photoCard.comments[k].avatar;
+              commentElement.querySelector('.social__picture').alt = photoCard.comments[k].name;
+              commentElement.querySelector('.social__text').textContent = photoCard.comments[k].message;
+              bigPictures.querySelector('.comments-loader').classList.add('visually-hidden');
+
+              fragment.appendChild(commentElement);
+            }
+          } else {
+            for (var l = 0; l < n; l++) {
+              commentElement = itemComment.cloneNode(true);
+              commentElement.querySelector('.social__picture').src = photoCard.comments[l].avatar;
+              commentElement.querySelector('.social__picture').alt = photoCard.comments[l].name;
+              commentElement.querySelector('.social__text').textContent = photoCard.comments[l].message;
+              bigPictures.querySelector('.comments-loader').classList.remove('visually-hidden');
+
+              fragment.appendChild(commentElement);
+            }
+          }
+
+          return socialComments.appendChild(fragment);
+        });
 
         return socialComments.appendChild(fragment);
       };
