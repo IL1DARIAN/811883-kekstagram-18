@@ -13,20 +13,17 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
-  var debounce = function (func) {
-    var timeout;
+  var debounce = function (cb) {
+    var lastTimeout = null;
+
     return function () {
-      var context = this; // eslint-disable-line
-      var args = arguments;
-      var later = function () {
-        timeout = null;
-      };
-      var callNow = !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, DEBOUNCE_INTERVAL);
-      if (callNow) {
-        func.apply(context, args);
+      var parameters = arguments;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
       }
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
     };
   };
 
