@@ -25,7 +25,6 @@
 
     xhr.timeout = 10000;
 
-
     xhr.open('POST', URL);
     xhr.send(data);
   };

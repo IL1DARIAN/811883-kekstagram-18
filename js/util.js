@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var STORYES = 25;
   var ESC_KEYCODE = 27;
   var IMAGE_SIZE = 100;
   var STEP_SIZE = 25;
@@ -27,20 +26,19 @@
     };
   };
 
-  var shuffle = function (arr) {
+  var shuffle = function (array) {
     var step;
-    var temp;
-    for (var i = arr.length - 1; i > 0; i--) {
+    var tempoparyVariable;
+    for (var i = array.length - 1; i > 0; i--) {
       step = Math.floor(Math.random() * (i + 1));
-      temp = arr[step];
-      arr[step] = arr[i];
-      arr[i] = temp;
+      tempoparyVariable = array[step];
+      array[step] = array[i];
+      array[i] = tempoparyVariable;
     }
-    return arr;
+    return array;
   };
 
   window.util = {
-    STORYES: STORYES,
     ESC_KEYCODE: ESC_KEYCODE,
     IMAGE_SIZE: IMAGE_SIZE,
     STEP_SIZE: STEP_SIZE,
