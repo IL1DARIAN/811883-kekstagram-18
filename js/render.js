@@ -7,13 +7,13 @@
   var imageFilters = document.querySelector('.img-filters');
 
   var renderPhotos = function (photoCard) {
-    var photoElement = similarPhotosTemplate.cloneNode(true);
+    var createdPhoto = similarPhotosTemplate.cloneNode(true);
 
-    photoElement.querySelector('.picture__img').src = photoCard.url;
-    photoElement.querySelector('.picture__likes').textContent = photoCard.likes;
-    photoElement.querySelector('.picture__comments').textContent = photoCard.comments.length;
+    createdPhoto.querySelector('.picture__img').src = photoCard.url;
+    createdPhoto.querySelector('.picture__likes').textContent = photoCard.likes;
+    createdPhoto.querySelector('.picture__comments').textContent = photoCard.comments.length;
 
-    photoElement.addEventListener('click', function () {
+    createdPhoto.addEventListener('click', function () {
 
       var bigPictures = document.querySelector('.big-picture');
       var socialComments = bigPictures.querySelector('.social__comments');
@@ -59,17 +59,17 @@
       var renderComment = function () {
         var fragment = document.createDocumentFragment();
         var maxComments = window.util.MAX_COMMENT;
-        var commentElement;
+        var createdComment;
 
         var renderComments = function (iterator) {
-          commentElement = itemComment.cloneNode(true);
-          commentElement.querySelector('.social__picture').src = photoCard.comments[iterator].avatar;
-          commentElement.querySelector('.social__picture').alt = photoCard.comments[iterator].name;
-          commentElement.querySelector('.social__text').textContent = photoCard.comments[iterator].message;
-          return fragment.appendChild(commentElement);
+          createdComment = itemComment.cloneNode(true);
+          createdComment.querySelector('.social__picture').src = photoCard.comments[iterator].avatar;
+          createdComment.querySelector('.social__picture').alt = photoCard.comments[iterator].name;
+          createdComment.querySelector('.social__text').textContent = photoCard.comments[iterator].message;
+          return fragment.appendChild(createdComment);
         };
 
-        if (photoCard.comments.length < maxComments) {
+        if (photoCard.comments.length <= maxComments) {
           for (var i = 0; i < photoCard.comments.length; i++) {
             renderComments(i);
             bigPictures.querySelector('.comments-loader').classList.add('visually-hidden');
@@ -86,7 +86,7 @@
         bigPictures.querySelector('.comments-loader').addEventListener('click', function () {
           socialComments.textContent = '';
           maxComments = maxComments + window.util.STEP_COMMENT;
-          if (photoCard.comments.length < maxComments) {
+          if (photoCard.comments.length <= maxComments) {
             for (var k = 0; k < photoCard.comments.length; k++) {
               renderComments(k);
               bigPictures.querySelector('.comments-loader').classList.add('visually-hidden');
@@ -111,7 +111,7 @@
       renderComment();
     });
 
-    return photoElement;
+    return createdPhoto;
   };
 
   var getPopularPhotos = function (array) {
@@ -155,8 +155,8 @@
   };
 
   var clearPhotos = function () {
-    var delElements = picturesCard.querySelectorAll('.picture');
-    delElements.forEach(function (picture) {
+    var deletedPictures = picturesCard.querySelectorAll('.picture');
+    deletedPictures.forEach(function (picture) {
       if (picture.classList.contains('picture')) {
         picture.remove();
       }
@@ -194,29 +194,29 @@
     var errorPopup = errorPopupWrapper.querySelector('.error__inner');
     var errorButtons = errorPopupWrapper.querySelectorAll('.error__button');
 
-    var closeErrorPopupEsc = function (evt) {
+    var errorPopupEscPressHandler = function (evt) {
       if (evt.keyCode === window.util.ESC_KEYCODE) {
-        closeErrorPopup();
+        errorPopupCloseHandler();
       }
     };
 
-    var closeErrorPopupOutside = function (evt) {
+    var errorPopupClickOutsideHandler = function (evt) {
       if (!errorPopup.contains(evt.target)) {
-        closeErrorPopup();
+        errorPopupCloseHandler();
       }
     };
 
-    var closeErrorPopup = function () {
+    var errorPopupCloseHandler = function () {
       errorPopupWrapper.classList.add('visually-hidden');
-      document.removeEventListener('keydown', closeErrorPopupEsc);
-      document.removeEventListener('click', closeErrorPopupOutside);
+      document.removeEventListener('keydown', errorPopupEscPressHandler);
+      document.removeEventListener('click', errorPopupClickOutsideHandler);
     };
 
 
-    document.addEventListener('click', closeErrorPopupOutside);
-    document.addEventListener('keydown', closeErrorPopupEsc);
+    document.addEventListener('click', errorPopupClickOutsideHandler);
+    document.addEventListener('keydown', errorPopupEscPressHandler);
     for (var i = 0; i < errorButtons.length; i++) {
-      errorButtons[i].addEventListener('click', closeErrorPopup);
+      errorButtons[i].addEventListener('click', errorPopupCloseHandler);
     }
   };
 

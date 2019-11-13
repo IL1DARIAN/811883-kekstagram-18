@@ -7,6 +7,11 @@
   var MAX_COMMENT = 5;
   var STEP_COMMENT = 5;
   var DEBOUNCE_INTERVAL = 500;
+  var MIN_BLUR_EFFECT = 0;
+  var MAX_BLUR_EFFECT = 3;
+  var MIN_BRIGHTNESS_EFFECT = 1;
+  var MAX_BRIGHTNESS_EFFECT = 3;
+  var RANGE_BRIGHTNESS_EFFECT = 2;
 
   var getRandom = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -44,6 +49,12 @@
     STEP_SIZE: STEP_SIZE,
     MAX_COMMENT: MAX_COMMENT,
     STEP_COMMENT: STEP_COMMENT,
+    MIN_BLUR_EFFECT: MIN_BLUR_EFFECT,
+    MAX_BLUR_EFFECT: MAX_BLUR_EFFECT,
+    MIN_BRIGHTNESS_EFFECT: MIN_BRIGHTNESS_EFFECT,
+    MAX_BRIGHTNESS_EFFECT: MAX_BRIGHTNESS_EFFECT,
+    RANGE_BRIGHTNESS_EFFECT: RANGE_BRIGHTNESS_EFFECT,
+
     getRandom: getRandom,
     debounce: debounce,
     shuffle: shuffle

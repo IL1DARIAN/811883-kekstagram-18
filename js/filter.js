@@ -20,7 +20,7 @@
   var effectPin = effectLine.querySelector('.effect-level__pin');
   var effectDepth = effectLine.querySelector('.effect-level__depth');
 
-  var onPopupEscPress = function (evt) {
+  var popupEscPressHandler = function (evt) {
     if (evt.keyCode === window.util.ESC_KEYCODE) {
       closePopup();
     }
@@ -30,7 +30,7 @@
     photoOverlay.classList.remove('hidden');
     imageResizeButton.value = window.util.IMAGE_SIZE + '%';
     imageSlider.classList.add('visually-hidden');
-    document.addEventListener('keydown', onPopupEscPress);
+    document.addEventListener('keydown', popupEscPressHandler);
   };
 
   var closePopup = function () {
@@ -42,7 +42,7 @@
     imagePreview.style = '';
     imagePreview.classList.remove('effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat', 'effects__preview--chrome');
     photoUploadNode.querySelector('#effect-none').checked = 'true';
-    document.removeEventListener('keydown', onPopupEscPress);
+    document.removeEventListener('keydown', popupEscPressHandler);
   };
 
   fileUploadNode.addEventListener('change', function () {
@@ -116,19 +116,19 @@
   });
 
   textDescription.addEventListener('focus', function () {
-    document.removeEventListener('keydown', onPopupEscPress);
+    document.removeEventListener('keydown', popupEscPressHandler);
   });
 
   textDescription.addEventListener('blur', function () {
-    document.addEventListener('keydown', onPopupEscPress);
+    document.addEventListener('keydown', popupEscPressHandler);
   });
 
   textHashtags.addEventListener('focus', function () {
-    document.removeEventListener('keydown', onPopupEscPress);
+    document.removeEventListener('keydown', popupEscPressHandler);
   });
 
   textHashtags.addEventListener('blur', function () {
-    document.addEventListener('keydown', onPopupEscPress);
+    document.addEventListener('keydown', popupEscPressHandler);
   });
 
   textDescription.addEventListener('input', function () {
@@ -176,28 +176,28 @@
     var successPopup = successPopupWrapper.querySelector('.success__inner');
     var successButton = successPopupWrapper.querySelector('.success__button');
 
-    var closeSuccessPopupEsc = function (evt) {
+    var successPopupEscPressHandler = function (evt) {
       if (evt.keyCode === window.util.ESC_KEYCODE) {
-        closeSuccessPopup();
+        successPopupCloseHandler();
       }
     };
 
-    var closeSuccessPopupOutside = function (evt) {
+    var successPopupClickOutsideHandler = function (evt) {
       if (!successPopup.contains(evt.target)) {
-        closeSuccessPopup();
+        successPopupCloseHandler();
       }
     };
 
-    var closeSuccessPopup = function () {
+    var successPopupCloseHandler = function () {
       successPopupWrapper.classList.add('visually-hidden');
-      document.removeEventListener('keydown', closeSuccessPopupEsc);
-      document.removeEventListener('click', closeSuccessPopupOutside);
+      document.removeEventListener('keydown', successPopupEscPressHandler);
+      document.removeEventListener('click', successPopupClickOutsideHandler);
     };
 
 
-    document.addEventListener('click', closeSuccessPopupOutside);
-    document.addEventListener('keydown', closeSuccessPopupEsc);
-    successButton.addEventListener('click', closeSuccessPopup);
+    document.addEventListener('click', successPopupClickOutsideHandler);
+    document.addEventListener('keydown', successPopupEscPressHandler);
+    successButton.addEventListener('click', successPopupCloseHandler);
   };
 
   var errorUploadHandler = function () {
@@ -209,29 +209,29 @@
     var errorPopup = errorPopupWrapper.querySelector('.error__inner');
     var errorButtons = errorPopupWrapper.querySelectorAll('.error__button');
 
-    var closeErrorPopupEsc = function (evt) {
+    var errorPopupEscPressHandler = function (evt) {
       if (evt.keyCode === window.util.ESC_KEYCODE) {
-        closeErrorPopup();
+        errorPopupCloseHandler();
       }
     };
 
-    var closeErrorPopupOutside = function (evt) {
+    var errorPopupClickOutsideHandler = function (evt) {
       if (!errorPopup.contains(evt.target)) {
-        closeErrorPopup();
+        errorPopupCloseHandler();
       }
     };
 
-    var closeErrorPopup = function () {
+    var errorPopupCloseHandler = function () {
       errorPopupWrapper.classList.add('visually-hidden');
-      document.removeEventListener('keydown', closeErrorPopupEsc);
-      document.removeEventListener('click', closeErrorPopupOutside);
+      document.removeEventListener('keydown', errorPopupEscPressHandler);
+      document.removeEventListener('click', errorPopupClickOutsideHandler);
     };
 
 
-    document.addEventListener('click', closeErrorPopupOutside);
-    document.addEventListener('keydown', closeErrorPopupEsc);
+    document.addEventListener('click', errorPopupClickOutsideHandler);
+    document.addEventListener('keydown', errorPopupEscPressHandler);
     for (var i = 0; i < errorButtons.length; i++) {
-      errorButtons[i].addEventListener('click', closeErrorPopup);
+      errorButtons[i].addEventListener('click', errorPopupCloseHandler);
     }
   };
 
